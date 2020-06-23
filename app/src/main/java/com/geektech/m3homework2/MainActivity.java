@@ -14,6 +14,8 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        getResult();
+
         Button btnStart = findViewById(R.id.btn_start);
         btnStart.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -40,5 +42,14 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
+
+    private void getResult(){
+        Intent intent = getIntent();
+        if(intent != null) {
+            String text = intent.getStringExtra(intent.EXTRA_TEXT);
+        }
+    }
+
+
 }
 

@@ -42,11 +42,10 @@ public class MainActivityApp extends AppCompatActivity {
     private double val2;
     private char ACTION;
 
+    private Button save;
     private static final String SAVED_STRING = "saved_string";
 
     private String inputedText = "";
-
-    private String result1;
 
 
     @Override
@@ -149,6 +148,16 @@ public class MainActivityApp extends AppCompatActivity {
             }
         });
 
+        save.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivityApp.this, MainActivity.class);
+                intent.putExtra("result", result.getText().toString());
+                startActivity(intent);
+
+            }
+        });
+
         sub.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -236,6 +245,7 @@ public class MainActivityApp extends AppCompatActivity {
         info = (EditText) findViewById(R.id.info);
         result = (TextView) findViewById(R.id.result);
         clear = (Button) findViewById(R.id.btnclear);
+        save = findViewById(R.id.but_save);
     }
 
     private void compute() {
