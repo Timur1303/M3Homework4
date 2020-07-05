@@ -41,23 +41,22 @@ public class MainActivityApp extends AppCompatActivity {
     private double val1 = Double.NaN;
     private double val2;
     private char ACTION;
-
+    private Button save;
     private static final String SAVED_STRING = "saved_string";
 
     private String inputedText = "";
-
-    private String result1;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_app);
+        setupUIViews();
         Log.d("ololo", "onCreate");
 
         Log.d("ololo", "inputedText: " + inputedText);
-        EditText infoText = findViewById(R.id.info);
-        infoText.addTextChangedListener(new TextWatcher() {
+
+        info.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
                 Log.d("ololo", "beforeTextChanged" + s.toString());
@@ -76,7 +75,6 @@ public class MainActivityApp extends AppCompatActivity {
         });
 
         getData();
-        setupUIViews();
 
 
         zero.setOnClickListener(new View.OnClickListener() {
@@ -146,6 +144,17 @@ public class MainActivityApp extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 info.setText(info.getText().toString() + "9");
+            }
+        });
+
+        save.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = getIntent();
+                String text = result.getText().toString();
+                intent.putExtra("result", text);
+                setResult(RESULT_OK, intent);
+                finish();
             }
         });
 
@@ -236,6 +245,7 @@ public class MainActivityApp extends AppCompatActivity {
         info = (EditText) findViewById(R.id.info);
         result = (TextView) findViewById(R.id.result);
         clear = (Button) findViewById(R.id.btnclear);
+        save = findViewById(R.id.btn_save);
     }
 
     private void compute() {
