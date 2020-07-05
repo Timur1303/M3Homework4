@@ -30,6 +30,7 @@ public class MainActivityApp extends AppCompatActivity {
     private Button mul;
     private Button div;
     private Button equal;
+    private Button save;
     private Button clear;
     private EditText info;
     private TextView result;
@@ -46,18 +47,15 @@ public class MainActivityApp extends AppCompatActivity {
 
     private String inputedText = "";
 
-    private String result1;
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_app);
         Log.d("ololo", "onCreate");
+        setupUIViews();
 
         Log.d("ololo", "inputedText: " + inputedText);
-        EditText infoText = findViewById(R.id.info);
-        infoText.addTextChangedListener(new TextWatcher() {
+        info.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
                 Log.d("ololo", "beforeTextChanged" + s.toString());
@@ -74,9 +72,6 @@ public class MainActivityApp extends AppCompatActivity {
                 inputedText = s.toString();
             }
         });
-
-        getData();
-        setupUIViews();
 
 
         zero.setOnClickListener(new View.OnClickListener() {
@@ -199,6 +194,15 @@ public class MainActivityApp extends AppCompatActivity {
                 info.setText(null);
             }
         });
+        save.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = getIntent();
+                intent.putExtra("Result",result.getText().toString());
+                setResult(RESULT_OK,intent);
+                finish();
+            }
+        });
 
         clear.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -217,7 +221,6 @@ public class MainActivityApp extends AppCompatActivity {
     }
 
     private void setupUIViews() {
-
         one = (Button) findViewById(R.id.btn1);
         zero = (Button) findViewById(R.id.btn0);
         two = (Button) findViewById(R.id.btn2);
@@ -236,6 +239,7 @@ public class MainActivityApp extends AppCompatActivity {
         info = (EditText) findViewById(R.id.info);
         result = (TextView) findViewById(R.id.result);
         clear = (Button) findViewById(R.id.btnclear);
+        save = findViewById(R.id.btn_save);
     }
 
     private void compute() {
@@ -313,13 +317,4 @@ public class MainActivityApp extends AppCompatActivity {
         super.onDestroy();
         Log.d("ololo", "onDestroy");
     }
-
-    private void getData() {
-        Intent intent = getIntent();
-        if (intent != null) {
-            String text = intent.getStringExtra(Intent.EXTRA_TEXT);
-        }
-    }
-
-
 }
